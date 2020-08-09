@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class WorkDay extends Model
 {
     protected $fillable = [
-
-    	'day',
+        'day',
         'active',
-
+        
         'morning_start',
         'morning_end',
 

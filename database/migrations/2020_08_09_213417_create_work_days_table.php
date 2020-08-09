@@ -18,7 +18,7 @@ class CreateWorkDaysTable extends Migration
 
             $table->unsignedSmallInteger('day');
             $table->boolean('active');
-
+            
             $table->time('morning_start');
             $table->time('morning_end');
 

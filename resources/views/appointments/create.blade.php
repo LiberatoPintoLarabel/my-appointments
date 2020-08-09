@@ -27,8 +27,9 @@
              <form action="{{ url('patients') }}" method="post">
               @csrf
               <div class="form-group">
-                <label for="name">Especialidad</label>
-                <select name="name" class="form-control">
+                <label for="specialty">Especialidad</label>
+                 <select name="specialty_id" id="specialty" class="form-control" required>
+                  <option value="">Seleccionar especialdad</option>
                   @foreach ($specialties as $specialty)
                     <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
                   @endforeach
@@ -36,7 +37,7 @@
               </div>
               <div class="form-group">
                 <label for="email">Médicos</label> 
-                <select name="name" class="form-control">
+                <select name="doctor_id" id="doctor" class="form-control">
 
                 </select>
               </div>
@@ -46,21 +47,19 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
-                      <input class="form-control datepicker" placeholder="Seleccionar la fecha" type="text" value="06/20/2020">
+                      <input class="form-control datepicker" placeholder="Seleccionar la fecha" type="text" value="{{ date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
+                      data-date-start-date="{{ date('Y-m-d') }}" data-date-end-date="+30d">
                     </div>
                 </div>
               <div class="form-group">
                 <label for="address">Horario de atención</label> 
                 <input type="text" name="address" class="form-control" value="{{ old('address') }}">
-                <div class="form-group">
+              </div>
+              <div class="form-group">
                 <label for="phone">Télefono/Móvil</label> 
                 <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
               </div>
-               <div class="form-group">
-                <label for="password">Contraseña</label> 
-                <input type="text" name="password" class="form-control" value="{{ str_random(6) }}">
-              </div>
-              <button type="submit" class="btn btn-primary">
+               <button type="submit" class="btn btn-primary">
                 Guardar
               </button>
             </form>
@@ -70,4 +69,26 @@
 
 @section('scripts')
   <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+  <script>
+   let $doctor;
+
+  $(function () {
+    const $specialty = $('#specialty');
+    $doctor = $('#doctor');
+
+    $specialty.chance(() => {
+      const specialtyId = $specialty.val();
+      const url = `/specialties/${specialtyId}/doctors`;
+      $.getJSON(url, onDoctorsLoaded);
+    });
+  });
+
+    function onDoctorsLoaded(doctors) {
+      let htmlOptions = '';
+      doctors.forEach(doctor => {
+        htmlOptions += `<option value="${doctor.id}">${doctor.name}</option`;
+      });
+      $doctor.html(htmlOptions);
+    }
+  </script>
 @endsection
