@@ -50,7 +50,7 @@ class DoctorController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $user = user::create(
+        $user = User::create(
             $request->only('name', 'email', 'cedula','address', 'phone')
             + [
                 'role' => 'doctor',
@@ -121,7 +121,7 @@ class DoctorController extends Controller
 
         $user->specialties()->sync($request->input('specialties'));
 
-        $notification = 'La información del  medico se ha resgistrado correctamente.';
+        $notification = 'La información del  medico se ha editado correctamente.';
         return redirect('/doctors')->with(compact('notification'));
     }
 

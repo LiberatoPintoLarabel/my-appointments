@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token', 'pivot'
     ];
 
-   
+   //$user->specialties
     public function specialties()
     {
         return $this->belongsToMany(Specialty::class)->withTimestamps();

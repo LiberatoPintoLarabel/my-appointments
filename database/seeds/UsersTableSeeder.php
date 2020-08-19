@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
 		]);
 
          User::create([
-        'name' => 'Paciente 1',
+        'name' => 'Paciente test',
         'email' => 'patient@programasymas.com',
         'password' => bcrypt('123123'), // password
         'role' => 'patient'
@@ -28,12 +28,12 @@ class UsersTableSeeder extends Seeder
         ]); 
 
          User::create([
-        'name' => 'Médico 1',
+        'name' => 'Médico Test',
         'email' => 'doctor@programasymas.com',
         'password' => bcrypt('123123'), // password
         'role' => 'doctor'
         ]);
 
-        factory(User::class, 50)->create();
+        factory(User::class, 50)->states('patient')->create();
     }
 }

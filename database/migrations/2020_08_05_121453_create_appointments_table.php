@@ -14,10 +14,29 @@ class CreateAppointmentsTable extends Migration
     public function up()
     {
         Schema::create('appointments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             
+            $table->string('description');
+
+            // fk specialty
+            $table->unsignedInteger('specialty_id');
+            $table->foreign('specialty_id')->references('id')->on('specialties');
+
+            // fk doctor
+            $table->unsignedInteger('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('users');
+
+            // patient
+            $table->unsignedInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('users');
+
+
+            $table->date('scheduled_date');
+            $table->time('scheduled_time');
             
-            
+            $table->string('type');
+
+
             $table->timestamps();
         });
     }
@@ -32,3 +51,4 @@ class CreateAppointmentsTable extends Migration
         Schema::dropIfExists('appointments');
     }
 }
+

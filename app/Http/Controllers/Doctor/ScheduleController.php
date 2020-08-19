@@ -34,10 +34,11 @@ class ScheduleController extends Controller
         }
     	
     	
-    	// dd($workDays->toArray());
+    	//dd($workDays->toArray());
     	$days = $this->days;
     	return view('schedule', compact('workDays', 'days'));
-    }
+        }
+
 
     public function store(Request $request)
     {

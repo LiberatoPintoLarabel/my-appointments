@@ -30,10 +30,11 @@ Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function () {
 
 Route::middleware('auth')->group(function () {
 	Route::get('/appointments/create', 'AppointmentController@create');
-	Route::get('/appointments', 'AppointmentController@store');
+	Route::post('/appointments', 'AppointmentController@store');
 
 	//JSON
 	Route::get('/specialties/{specialty}/doctors', 'Api\SpecialtyController@doctors');
+	Route::get('/schedule/hours', 'Api\ScheduleController@hours');
 });
 
 
